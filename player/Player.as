@@ -39,14 +39,17 @@ package
 		{
 			Log.d(_player.currentTime + " " + _player.duration);
 			Log.d(_player.drmState);
-			if (_player.playing)
-			{
-				_player.pause();
-			}
-			else
-			{
-				_player.play();
-			}
+
+			_player.seek(1000*10);
+
+			/* if (_player.playing) */
+			/* { */
+			/* 	_player.pause(); */
+			/* } */
+			/* else */
+			/* { */
+			/* 	_player.play(); */
+			/* } */
 		}
 	}
 }
