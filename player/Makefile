@@ -1,2 +1,5 @@
-Player.swf: Player.as Log.as
-	${FLEX_HOME}/bin/mxmlc -static-link-runtime-shared-libraries $<
+AS_FILES = $(shell find . -type f -iname '*.as')
+
+Player.swf: PlayerMain.as flex-config.xml $(AS_FILES)
+	${FLEX_HOME}/bin/mxmlc -load-config+=flex-config.xml $<
+	mv PlayerMain.swf Player.swf

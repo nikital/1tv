@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<flex-config>
+    <!-- Specifies the minimum player version that will run the compiled SWF. -->
+    <target-player>14.0</target-player>
+
+    <!-- Specifies the version of the compiled SWF -->
+    <swf-version>14</swf-version>
+
+    <compiler>
+        <define append="true"> 
+            <name>CONFIG::LOGGING</name> 
+            <value>true</value> 
+        </define> 
+        <define append="true"> 
+            <name>CONFIG::PLATFORM</name> 
+            <value>true</value> 
+        </define> 
+        <define append="true"> 
+            <name>CONFIG::FLASH_10_1</name> 
+            <value>false</value> 
+        </define> 
+        <define append="true"> 
+            <name>CONFIG::MOCK</name> 
+            <value>false</value> 
+        </define> 
+
+    </compiler>
+
+    <static-link-runtime-shared-libraries>true</static-link-runtime-shared-libraries>
+
+</flex-config>
