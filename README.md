@@ -1,1 +1,3 @@
-Download Flex 4.6 SDK and set `$FLEX_HOME` to point to it's root.
+Download Flex 4.13 SDK from Apache,
+select Flash Player 14 as the target.
+Set `$FLEX_HOME` to point to SDK root.
