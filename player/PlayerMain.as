@@ -1,12 +1,12 @@
 package
 {
-	import net.leshenko.onetv.Player;
+    import net.leshenko.onetv.Player;
 
-	public class PlayerMain extends Player
-	{
-		public function PlayerMain()
-		{
-			super();
-		}
-	}
+    public class PlayerMain extends Player
+    {
+        public function PlayerMain()
+        {
+            super();
+        }
+    }
 }

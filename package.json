@@ -1,0 +1,17 @@
+{
+    "name": "1tv",
+    "version": "0.1.0",
+    "description": "Live TV for grandmother",
+    "main": "server.js",
+    "dependencies": {
+        "websocket": "1.0.x",
+        "express": "^4.0.0"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js"
+    },
+    "author": "Nik",
+    "license": "ISC"
+}
