@@ -4,19 +4,24 @@
  * JSON over WebSocket
  */
 
-function JSONWebsocket(endpoint) {
+function JSONWebSocket(endpoint) {
     this._ws = new WebSocket(endpoint, 'json');
     this._messages = [];
+    this._handlers = {};
 
-    this._ws.onopen = this._onOpen.bind(this);
     this._ws.onmessage = this._onMessage.bind(this);
+    this._ws.onopen = this._onOpen.bind(this);
     this._ws.onclose = this._onClose.bind(this);
 }
 
-JSONWebsocket.prototype.send = function(type, body) {
+JSONWebSocket.prototype.send = function(type, body) {
     var message = {'type': type, 'body': body};
-    message = JSON.stringify(message);
 
+    if (typeof type !== 'string' || !type) {
+        throw 'No message type specified';
+    }
+
+    message = JSON.stringify(message);
     if (this._ws.readyState == WebSocket.OPEN) {
         this._ws.send(message);
     } else {
@@ -24,7 +29,22 @@ JSONWebsocket.prototype.send = function(type, body) {
     }
 };
 
-JSONWebsocket.prototype._onOpen = function() {
+JSONWebSocket.prototype.on = function(type, handler) {
+    if (this._handlers[type]) {
+        throw 'Two handlers for "' + type + '"! Time to rearchitect...';
+    }
+
+    this._handlers[type] = handler;
+}
+
+JSONWebSocket.prototype._onMessage = function(e) {
+    var message = e.data;
+    message = JSON.parse(message);
+
+    this._handlers[message.type](message.body);
+};
+
+JSONWebSocket.prototype._onOpen = function() {
     var i = 0;
 
     for (i = 0; i < this._messages.length; ++i) {
@@ -34,10 +54,6 @@ JSONWebsocket.prototype._onOpen = function() {
     this._messages = [];
 };
 
-JSONWebsocket.prototype._onMessage = function(e) {
-    console.log(e.data);
-};
-
-JSONWebsocket.prototype._onClose = function() {
+JSONWebSocket.prototype._onClose = function() {
     console.error("Websocket closed!");
 };
