@@ -9,6 +9,7 @@ function Player() {
     this._yt.cueVideo('J1vpB6h3ek4', 0);
 
     this._socket.on('select', this._onSelectCmd.bind(this));
+    this._socket.on('yt', this._onYTCmd.bind(this));
 }
 
 Player.prototype._onSelectCmd = function(message) {
@@ -23,6 +24,12 @@ Player.prototype._onSelectCmd = function(message) {
         this._yt.hide();
     } else {
         console.error('Bad message', message);
+    }
+};
+
+Player.prototype._onYTCmd = function(message) {
+    if (message.cue) {
+        this._yt.cueVideo(message.cue.id, message.cue.start);
     }
 };
 

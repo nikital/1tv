@@ -4,7 +4,7 @@ function YTPlayer() {
     this._wrap = document.getElementById('player-yt-wrap');
     this._yt = null;
     this._visible = true;
-    this._qued = null;
+    this._cued = null;
 
     YT.ready(this._onYTReady.bind(this));
 }
@@ -12,8 +12,11 @@ function YTPlayer() {
 YTPlayer.prototype.cueVideo = function(id, start) {
     if (this._yt) {
         this._yt.cueVideoById(id, start);
+        if (this._visible) {
+            this._yt.playVideo();
+        }
     } else {
-        this._qued = {id: id, start: start};
+        this._cued = {id: id, start: start};
     }
 };
 
@@ -44,10 +47,10 @@ YTPlayer.prototype._onYTReady = function() {
         }
     };
 
-    if (this._qued) {
-        config.videoId = this._qued.id;
-        config.playerVars.start = this._qued.start;
-        this._qued = null;
+    if (this._cued) {
+        config.videoId = this._cued.id;
+        config.playerVars.start = this._cued.start;
+        this._cued = null;
     }
 
     this._yt = new YT.Player('player-yt', config);
