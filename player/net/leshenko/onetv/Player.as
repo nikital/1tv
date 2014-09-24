@@ -98,12 +98,20 @@ package net.leshenko.onetv
 
         private function externalPlay():void
         {
-            _player.play();
+            if (_player.canPlay) {
+                _player.play();
+            } else {
+                _player.autoPlay = true;
+            }
         }
 
         private function externalPause():void
         {
-            _player.pause();
+            if (_player.canPause) {
+                _player.pause();
+            } else {
+                _player.autoPlay = false;
+            }
         }
 
     }
