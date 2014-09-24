@@ -32,9 +32,9 @@ Bridge.prototype.addMaster = function(req) {
 
 Bridge.prototype.addSlave = function(req) {
     if (this.slave) {
-        console.log((new Date()) + ' Duplicate slave attemped to connect: ' + this.name);
-        req.reject(409, 'Slave already connected');
-        return;
+        console.log((new Date()) + ' Slave reconnected, dropping previous: ' + this.name);
+        this.slave.close();
+        this.slave = null;
     }
 
     console.log((new Date()) + ' Slave connected to: ' + this.name);
