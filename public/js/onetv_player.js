@@ -5,7 +5,9 @@ function OnetvPlayer() {
         params = {},
         attributes = {};
 
+    this._wrap = document.getElementById('player-1tv-wrap');
     this._swf = null;
+    this._visible = true;
 
     params.bgcolor='#0'; 
     params.wmode='direct'; 
@@ -20,6 +22,8 @@ function OnetvPlayer() {
 }
 
 OnetvPlayer.prototype.hide = function() {
+    this._visible = false;
+    this._wrap.style.height = 0;
     this._pause();
     if (this._swf) {
         this._swf.style.visibility = 'hidden';
@@ -27,7 +31,9 @@ OnetvPlayer.prototype.hide = function() {
 };
 
 OnetvPlayer.prototype.show = function() {
+    this._visible = true;
     this._play();
+    this._wrap.style.height = '';
     if (this._swf) {
         this._swf.style.visibility = 'visible';
     }
@@ -35,6 +41,9 @@ OnetvPlayer.prototype.show = function() {
 
 OnetvPlayer.prototype._onSWFEmbedded = function(obj) {
     this._swf = obj.ref;
+    if (!this._visible) {
+        this.hide();
+    }
 };
 
 OnetvPlayer.prototype._play = function() {
