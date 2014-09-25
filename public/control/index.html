@@ -13,14 +13,14 @@
   <link rel="import" href="/components/core-toolbar/core-toolbar.html">
   <link rel="import" href="/components/paper-tabs/paper-tabs.html">
 
-  <link rel="import" href="control-rack.html">
+  <link rel="import" href="onetv-rack.html">
+  <link rel="import" href="yt-rack.html">
 
   <script src="/js/json_websocket.js"></script>
 </head>
 
 <body unresolved fullbleed layout vertical>
   <core-header-panel flex>
-
     <core-toolbar>
       <paper-tabs id="channels" self-end>
         <paper-tab name="onetv">1TV</paper-tab>
@@ -28,12 +28,12 @@
         <paper-tab name="none">None</paper-tab>
       </paper-tabs>
     </core-toolbar>
+    <div class="racks">
 
-    <control-rack>
-      <h2>Nikita</h2>
-      <div>yoyoyo</div>
-    </control-rack>
+      <onetv-rack></onetv-rack>
+      <yt-rack></yt-rack>
 
+    </div>
   </core-header-panel>
 
 

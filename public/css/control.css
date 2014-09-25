@@ -1,3 +1,5 @@
+/* cheer up emo kid */
+
 html,body {
     background-color: #E5E5E5;
     font-family: 'RobotoDraft', sans-serif;
@@ -17,8 +19,8 @@ paper-tab::shadow #ink {
     margin: 0;
     user-select: none;
 }
-.container {
+.racks {
     width: 800px;
-    margin: 50px auto;
+    margin: 20px auto;
 }
 

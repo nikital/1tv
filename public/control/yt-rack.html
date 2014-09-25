@@ -1,0 +1,43 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/components/paper-input/paper-input.html">
+<link rel="import" href="/components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="/components/paper-progress/paper-progress.html">
+<link rel="import" href="control-rack.html">
+
+<polymer-element name="yt-rack">
+<template>
+  <style>
+    paper-input {
+      width: 120px;
+    }
+    paper-progress {
+      width: 95%;
+    }
+    paper-progress::shadow #activeProgress {
+      background-color: #C44D58;
+    }
+  </style>
+  <control-rack>
+    <h2>YouTube</h2>
+    <core-icon class="state-icon" icon="av:pause"></core-icon>
+    <span class="state-text">Paused</span>
+
+    <div layout horizontal center>
+      <span flex>PhantomHD - Kitten in Slow Motion<br>
+        <paper-progress value="25"></paper-progress>
+      </span>
+      <paper-input label="1:05/4:18"></paper-input>
+      <paper-icon-button icon="av:fast-forward"></paper-icon-button>
+    </div>
+    <div layout horizontal center>
+      <span flex></span>
+      <paper-input label="Video Id"></paper-input>
+      <paper-icon-button icon="av:queue"></paper-icon-button>
+    </div>
+  </control-rack>
+</template>
+<script>
+  CoreStyle.g.paperInput.focusedColor = "#C44D58"
+  Polymer({});
+</script>
+</polymer-element>

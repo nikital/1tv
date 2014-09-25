@@ -1,0 +1,26 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/components/paper-button/paper-button.html">
+<link rel="import" href="/components/core-icons/av-icons.html">
+<link rel="import" href="control-rack.html">
+
+<polymer-element name="onetv-rack">
+<template>
+  <style>
+    paper-button {
+      color: #C44D58;
+    }
+  </style>
+  <control-rack>
+    <h2>1TV</h2>
+    <core-icon class="state-icon" icon="av:play-arrow"></core-icon>
+    <span class="state-text">Playing</span>
+
+    <div layout horizontal center-justified>
+      <paper-button icon="av:loop">Sync to Live</paper-button>
+    </div>
+  </control-rack>
+</template>
+<script>
+  Polymer({});
+</script>
+</polymer-element>
