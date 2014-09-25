@@ -8,26 +8,31 @@
   <link rel="stylesheet" href="/css/control.css">
 
   <script src="/components/platform/platform.js"></script>
-  <link rel="import" href="../components/font-roboto/roboto.html">
-  <link rel="import" href="../components/core-header-panel/core-header-panel.html">
-  <link rel="import" href="../components/core-toolbar/core-toolbar.html">
-  <link rel="import" href="../components/paper-tabs/paper-tabs.html">
+  <link rel="import" href="/components/font-roboto/roboto.html">
+  <link rel="import" href="/components/core-header-panel/core-header-panel.html">
+  <link rel="import" href="/components/core-toolbar/core-toolbar.html">
+  <link rel="import" href="/components/paper-tabs/paper-tabs.html">
+
+  <link rel="import" href="control-rack.html">
 
   <script src="/js/json_websocket.js"></script>
 </head>
 
-<body unresolved>
-  <core-header-panel>
+<body unresolved fullbleed layout vertical>
+  <core-header-panel flex>
 
     <core-toolbar>
-
       <paper-tabs id="channels" self-end>
         <paper-tab name="onetv">1TV</paper-tab>
         <paper-tab name="yt">YouTube</paper-tab>
         <paper-tab name="none">None</paper-tab>
       </paper-tabs>
-
     </core-toolbar>
+
+    <control-rack>
+      <h2>Nikita</h2>
+      <div>yoyoyo</div>
+    </control-rack>
 
   </core-header-panel>
 
