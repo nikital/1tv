@@ -31,6 +31,9 @@ Player.prototype._onYTCmd = function(message) {
     if (message.cue) {
         this._yt.cueVideo(message.cue.id, message.cue.start);
     }
+    if (message.seek) {
+        this._yt.seek(message.seek.time);
+    }
 };
 
 (function(exports) {

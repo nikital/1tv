@@ -20,6 +20,14 @@ YTPlayer.prototype.cueVideo = function(id, start) {
     }
 };
 
+YTPlayer.prototype.seek = function(time) {
+    if (this._yt) {
+        this._yt.seekTo(time, true);
+    } else if (this._cued) {
+        this._cued.start = time;
+    }
+};
+
 YTPlayer.prototype.hide = function() {
     this._visible = false;
     this._wrap.style.height = 0;

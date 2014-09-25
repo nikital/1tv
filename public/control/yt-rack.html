@@ -4,7 +4,8 @@
 <link rel="import" href="/components/paper-progress/paper-progress.html">
 <link rel="import" href="control-rack.html">
 
-<polymer-element name="yt-rack">
+<polymer-element name="yt-rack"
+  attributes="cueId seekTime">
 <template>
   <style>
     paper-input {
@@ -26,18 +27,44 @@
       <span flex>PhantomHD - Kitten in Slow Motion<br>
         <paper-progress value="25"></paper-progress>
       </span>
-      <paper-input label="1:05/4:18"></paper-input>
-      <paper-icon-button icon="av:fast-forward"></paper-icon-button>
+      <paper-input value="{{seekTimeString}}" label="1:05/4:18"></paper-input>
+      <paper-icon-button on-tap="{{seek}}" icon="av:fast-forward"></paper-icon-button>
     </div>
     <div layout horizontal center>
       <span flex></span>
-      <paper-input label="Video Id"></paper-input>
-      <paper-icon-button icon="av:queue"></paper-icon-button>
+      <paper-input value="{{cueId}}" label="Video Id"></paper-input>
+      <paper-icon-button on-tap="{{cueVideo}}" icon="av:queue"></paper-icon-button>
     </div>
   </control-rack>
 </template>
 <script>
-  CoreStyle.g.paperInput.focusedColor = "#C44D58"
-  Polymer({});
+  CoreStyle.g.paperInput.focusedColor = '#C44D58';
+  Polymer({
+    cueVideo: function() {
+      if (this.cueId) {
+        this.fire('cue-video');
+        this.cueId = '';
+      }
+    },
+    seek: function() {
+      this.fire('seek-video');
+      this.seekTimeString = '';
+    },
+    seekTimeStringChanged: function() {
+      var seekTime, i, frags;
+
+      seekTime = 0;
+      if (this.seekTimeString) {
+        frags = this.seekTimeString.split(':');
+        for (i = 0; i < frags.length; ++i) {
+          var parsed = parseInt(frags[i]);
+          if (!isNaN(parsed)) {
+            seekTime += parsed * Math.pow(60, frags.length - i - 1);
+          }
+        }
+      }
+      this.seekTime = seekTime;
+    }
+  });
 </script>
 </polymer-element>
