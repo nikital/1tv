@@ -1,0 +1,31 @@
+html,body {
+    height: 100%;
+    margin: 0;
+    background-color: #E5E5E5;
+    font-family: 'RobotoDraft', sans-serif;
+}
+core-header-panel {
+    height: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch; 
+}
+core-toolbar {
+    background: #556270;
+    color: white;
+}
+paper-tabs::shadow #selectionBar {
+    background-color: #4ECDC4;
+}
+paper-tab::shadow #ink {
+    color: #FF6B6B;
+}
+#channels {
+    width: 400px;
+    margin: 0;
+    user-select: none;
+}
+.container {
+    width: 800px;
+    margin: 50px auto;
+}
+

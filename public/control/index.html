@@ -1,27 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-
   <title>Control Room</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0">
+
+  <link rel="stylesheet" href="/css/control.css">
+
+  <script src="/components/platform/platform.js"></script>
+  <link rel="import" href="../components/font-roboto/roboto.html">
+  <link rel="import" href="../components/core-header-panel/core-header-panel.html">
+  <link rel="import" href="../components/core-toolbar/core-toolbar.html">
+  <link rel="import" href="../components/paper-tabs/paper-tabs.html">
 
   <script src="/js/json_websocket.js"></script>
 </head>
 
-<body>
-  <dl>
-    <dt>Stream</dt>
-    <dd>
-      <button id="select-onetv">onetv</button>
-      <button id="select-yt">yt</button>
-      <button id="select-none">none</button>
-    </dd>
-    <dt>YouTube</dt>
-    <dd>
-      <input id="yt-id" />
-      <button id="yt-cue">cue</button>
-    </dd>
-  </dl>
+<body unresolved>
+  <core-header-panel>
+
+    <core-toolbar>
+
+      <paper-tabs id="channels" self-end>
+        <paper-tab name="onetv">1TV</paper-tab>
+        <paper-tab name="yt">YouTube</paper-tab>
+        <paper-tab name="none">None</paper-tab>
+      </paper-tabs>
+
+    </core-toolbar>
+
+  </core-header-panel>
+
 
   <script src="/js/control.js"></script>
 </body>

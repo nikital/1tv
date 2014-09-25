@@ -13,13 +13,13 @@ function Player() {
 }
 
 Player.prototype._onSelectCmd = function(message) {
-    if (message.player == 'onetv') {
+    if (message.channel == 'onetv') {
         this._onetv.show();
         this._yt.hide();
-    } else if (message.player == 'yt') {
+    } else if (message.channel == 'yt') {
         this._onetv.hide();
         this._yt.show();
-    } else if (message.player == 'none') {
+    } else if (message.channel == 'none') {
         this._onetv.hide();
         this._yt.hide();
     } else {
