@@ -1,10 +1,11 @@
 // 'use strict';
 
-function YTPlayer() {
+function YTPlayer(stateChangeCallback) {
     this._wrap = document.getElementById('player-yt-wrap');
     this._yt = null;
     this._visible = true;
     this._cued = null;
+    this._stateChangeCallback = stateChangeCallback;
 
     YT.ready(this._onYTReady.bind(this));
 }
@@ -26,6 +27,15 @@ YTPlayer.prototype.seek = function(time) {
     } else if (this._cued) {
         this._cued.start = time;
     }
+};
+
+YTPlayer.prototype.getState = function() {
+    var state = {};
+    state.state = this._getPlayerStateString();
+    state.title = this._yt.getVideoData().title;
+    state.time = this._yt.getCurrentTime();
+    state.duration = this._yt.getDuration();
+    return state;
 };
 
 YTPlayer.prototype.hide = function() {
@@ -52,6 +62,9 @@ YTPlayer.prototype._onYTReady = function() {
         playerVars: {
             controls: 0, disablekb: 1, modestbranding: 1,
             showinfo: 0, rel: 0, iv_load_policy: 3
+        },
+        events: {
+            onStateChange: this._onStateChange.bind(this)
         }
     };
 
@@ -67,3 +80,29 @@ YTPlayer.prototype._onYTReady = function() {
         this.hide();
     }
 };
+
+YTPlayer.prototype._onStateChange = function() {
+    if (this._stateChangeCallback) {
+        this._stateChangeCallback();
+    }
+    if (this._yt.getPlayerState() == YT.PlayerState.PLAYING) {
+        setTimeout(this._onStateChange.bind(this), 1000);
+    }
+};
+
+YTPlayer.prototype._getPlayerStateString = function() {
+    switch (this._yt.getPlayerState()) {
+        case YT.PlayerState.ENDED:
+            return "Ended";
+        case YT.PlayerState.PLAYING:
+            return "Playing";
+        case YT.PlayerState.PAUSED:
+            return "Paused";
+        case YT.PlayerState.BUFFERING:
+            return "Buffering";
+        case YT.PlayerState.CUED:
+            return "Cued";
+        default:
+            return "Unknown";
+    }
+}

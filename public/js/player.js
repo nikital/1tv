@@ -2,7 +2,7 @@
 
 function Player() {
     this._onetv = new OnetvPlayer();
-    this._yt = new YTPlayer();
+    this._yt = new YTPlayer(this._onStateChange.bind(this));
     this._socket = new JSONWebSocket('ws://' + window.location.host + '/ws/player');
 
     this._yt.hide();
@@ -10,6 +10,7 @@ function Player() {
 
     this._socket.on('select', this._onSelectCmd.bind(this));
     this._socket.on('yt', this._onYTCmd.bind(this));
+    this._socket.on('get-telemetry', this._onGetTelemetry.bind(this));
 }
 
 Player.prototype._onSelectCmd = function(message) {
@@ -34,6 +35,17 @@ Player.prototype._onYTCmd = function(message) {
     if (message.seek) {
         this._yt.seek(message.seek.time);
     }
+};
+
+Player.prototype._onGetTelemetry = function() {
+    this._onStateChange();
+};
+
+Player.prototype._onStateChange = function() {
+    var telemetry = {
+        yt: this._yt.getState()
+    };
+    this._socket.send('telemetry', telemetry);
 };
 
 (function(exports) {

@@ -1,6 +1,6 @@
 <link rel="import" href="/components/polymer/polymer.html">
 
-<polymer-element name="control-rack">
+<polymer-element name="control-rack" attributes="state">
 <template>
   <style>
     :host {
@@ -30,12 +30,27 @@
 
   <div class="card-header" layout horizontal center>
     <span flex><content select="h2"></content></span>
-    <content select=".state-icon"></content> <content select=".state-text"></content>
+    <core-icon icon="{{stateIcon}}"></core-icon>
+    {{state}}
   </div>
 
   <content></content>   
 </template>
 <script>
-  Polymer({});
+  Polymer({
+    stateChanged: function() {
+      if (this.state == 'Playing') {
+        this.stateIcon = 'av:play-arrow';
+      } else if (this.state == 'Paused' || this.state == 'Cued') {
+        this.stateIcon = 'av:pause';
+      } else if (this.state == 'Buffering') {
+        this.stateIcon = 'more-horiz';
+      } else if (this.state == 'Ended') {
+        this.stateIcon = 'av:stop';
+      } else {
+        this.stateIcon = 'error';
+      }
+    }
+  });
 </script>
 </polymer-element>

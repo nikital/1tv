@@ -8,6 +8,9 @@ function Control() {
     this._tabs.addEventListener('core-select', this._onChannelSelect.bind(this));
     this._yt.addEventListener('cue-video', this._onYTCue.bind(this));
     this._yt.addEventListener('seek-video', this._onYTSeek.bind(this));
+
+    this._socket.on('telemetry', this._onTelemetry.bind(this));
+    this._socket.send('get-telemetry', {});
 }
 
 Control.prototype._onChannelSelect = function() {
@@ -22,6 +25,15 @@ Control.prototype._onYTCue = function() {
 Control.prototype._onYTSeek = function() {
     var time = this._yt.seekTime;
     this._socket.send('yt', {seek: {time: time}});
+};
+
+Control.prototype._onTelemetry = function(telemetry) {
+    console.log(telemetry);
+
+    this._yt.videoTitle = telemetry.yt.title;
+    this._yt.time = telemetry.yt.time;
+    this._yt.duration = telemetry.yt.duration;
+    this._yt.state = telemetry.yt.state;
 };
 
 (function(exports) {

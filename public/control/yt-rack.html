@@ -5,7 +5,7 @@
 <link rel="import" href="control-rack.html">
 
 <polymer-element name="yt-rack"
-  attributes="cueId seekTime">
+  attributes="cueId seekTime videoTitle time duration state">
 <template>
   <style>
     paper-input {
@@ -18,16 +18,14 @@
       background-color: #C44D58;
     }
   </style>
-  <control-rack>
+  <control-rack state="{{state}}">
     <h2>YouTube</h2>
-    <core-icon class="state-icon" icon="av:pause"></core-icon>
-    <span class="state-text">Paused</span>
 
     <div layout horizontal center>
-      <span flex>PhantomHD - Kitten in Slow Motion<br>
-        <paper-progress value="25"></paper-progress>
+      <span flex>{{videoTitle}}<br>
+        <paper-progress value="{{time/duration * 100}}"></paper-progress>
       </span>
-      <paper-input value="{{seekTimeString}}" label="1:05/4:18"></paper-input>
+      <paper-input value="{{seekTimeString}}" label="{{seekLabel}}"></paper-input>
       <paper-icon-button on-tap="{{seek}}" icon="av:fast-forward"></paper-icon-button>
     </div>
     <div layout horizontal center>
@@ -39,6 +37,30 @@
 </template>
 <script>
   CoreStyle.g.paperInput.focusedColor = '#C44D58';
+
+  function timeStringFromSeconds(seconds) {
+    var result = '';
+
+    seconds = seconds|0;
+    hours = (seconds / (60*60))|0;
+    seconds -= hours * (60*60);
+    minutes = (seconds / 60)|0;
+    seconds -= minutes * 60;
+
+    if (hours > 0) {
+      result += hours + ':';
+      if (minutes < 10) {
+        minutes = '0' + minutes;
+      }
+    }
+    if (seconds < 10) {
+      seconds = '0' + seconds;
+    }
+    result += minutes + ':' + seconds;
+
+    return result;
+  }
+
   Polymer({
     cueVideo: function() {
       if (this.cueId) {
@@ -64,6 +86,17 @@
         }
       }
       this.seekTime = seekTime;
+    },
+
+    timeChanged: function() {
+      this.setSeekLabel();
+    },
+    durationChanged: function() {
+      this.setSeekLabel();
+    },
+    setSeekLabel: function() {
+      this.seekLabel =
+        timeStringFromSeconds(this.time) + '/' + timeStringFromSeconds(this.duration);
     }
   });
 </script>
