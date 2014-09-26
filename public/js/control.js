@@ -34,6 +34,8 @@ Control.prototype._onTelemetry = function(telemetry) {
     this._yt.time = telemetry.yt.time;
     this._yt.duration = telemetry.yt.duration;
     this._yt.state = telemetry.yt.state;
+
+    this._tabs.selected = telemetry.channel;
 };
 
 (function(exports) {

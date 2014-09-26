@@ -30,11 +30,19 @@ YTPlayer.prototype.seek = function(time) {
 };
 
 YTPlayer.prototype.getState = function() {
-    var state = {};
-    state.state = this._getPlayerStateString();
-    state.title = this._yt.getVideoData().title;
-    state.time = this._yt.getCurrentTime();
-    state.duration = this._yt.getDuration();
+    var state = {
+        state: 'Unloaded',
+        title: '',
+        time:0, duration: 0
+    };
+
+    if (this._yt) {
+        state.state = this._getPlayerStateString();
+        state.title = this._yt.getVideoData().title;
+        state.time = this._yt.getCurrentTime();
+        state.duration = this._yt.getDuration();
+    }
+
     return state;
 };
 
@@ -64,6 +72,7 @@ YTPlayer.prototype._onYTReady = function() {
             showinfo: 0, rel: 0, iv_load_policy: 3
         },
         events: {
+            onReady: this._onStateChange.bind(this),
             onStateChange: this._onStateChange.bind(this)
         }
     };
@@ -91,6 +100,10 @@ YTPlayer.prototype._onStateChange = function() {
 };
 
 YTPlayer.prototype._getPlayerStateString = function() {
+    if (!this._yt) {
+        return "Unloaded";
+    }
+
     switch (this._yt.getPlayerState()) {
         case YT.PlayerState.ENDED:
             return "Ended";
