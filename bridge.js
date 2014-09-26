@@ -8,7 +8,7 @@ var EventEmitter = require('events').EventEmitter;
 function Bridge(name, masterProtocol, slaveProtocol) {
     this.name = name;
     this.master = null;
-    this.slave = null;
+    this.slaves = [];
 
     this._masterProtocol = masterProtocol;
     this._slaveProtocol = slaveProtocol;
@@ -31,28 +31,26 @@ Bridge.prototype.addMaster = function(req) {
 };
 
 Bridge.prototype.addSlave = function(req) {
-    if (this.slave) {
-        console.log((new Date()) + ' Slave reconnected, dropping previous: ' + this.name);
-        this.slave.close();
-        this.slave = null;
-    }
+    var slave;
 
     console.log((new Date()) + ' Slave connected to: ' + this.name);
 
-    this.slave = req.accept(this._slaveProtocol, req.origin);
-    this.slave.on('message', this._onSlaveMessage.bind(this));
-    this.slave.on('close', this._onSlaveClose.bind(this));
+    slave = req.accept(this._slaveProtocol, req.origin);
+    slave.on('message', this._onSlaveMessage.bind(this));
+    slave.on('close', this._onSlaveClose.bind(this));
+
+    this.slaves.push(slave);
 };
 
 Bridge.prototype._onMasterMessage = function(message) {
-    if (!this.slave) {
-        return;
-    }
+    var i;
 
-    if (message.type == 'binary')
-        this.slave.sendBytes(message.binaryData);
-    else if (message.type == 'utf8')
-        this.slave.sendUTF(message.utf8Data);
+    for (i = 0; i < this.slaves.length; ++i) {
+        if (message.type == 'binary')
+            this.slaves[i].sendBytes(message.binaryData);
+        else if (message.type == 'utf8')
+            this.slaves[i].sendUTF(message.utf8Data);
+    }
 };
 
 Bridge.prototype._onSlaveMessage = function(message) {
@@ -70,20 +68,19 @@ Bridge.prototype._onMasterClose = function() {
     console.log((new Date()) + ' Master disconnected from: ' + this.name);
 
     this.master = null;
-    if (this.slave) {
-        this.slave.close();
-        this.slave = null;
-    }
 
     this.emit('close', this);
 };
 
-Bridge.prototype._onSlaveClose = function() {
+Bridge.prototype._onSlaveClose = function(e) {
+    var i;
+
     console.log((new Date()) + ' Slave disconnected from: ' + this.name);
 
-    this.slave = null;
-
-    // Don't drop the bridge, wait for another slave to connect
+    i = this.slaves.indexOf(e.target);
+    if (i != -1) {
+        this.slaves.splice(i, 1);
+    }
 };
 
 exports.Bridge = Bridge;
