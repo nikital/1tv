@@ -75,7 +75,8 @@ package net.leshenko.onetv
 
         private function onPlayerStateChange(e:MediaPlayerStateChangeEvent):void
         {
-            Log.d("State changed: " + e.state);
+			var capitalized:String = e.state.slice(0, 1).toUpperCase() + e.state.slice(1);
+			ExternalInterface.call("OnetvStateTracker.onStateChange", capitalized);
         }
 
         private function onMediaError(e:MediaErrorEvent):void

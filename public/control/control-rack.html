@@ -41,10 +41,12 @@
     stateChanged: function() {
       if (this.state == 'Playing') {
         this.stateIcon = 'av:play-arrow';
-      } else if (this.state == 'Paused' || this.state == 'Cued') {
+      } else if (this.state == 'Paused') {
         this.stateIcon = 'av:pause';
-      } else if (this.state == 'Buffering') {
+      } else if (this.state == 'Buffering' || this.state == 'Loading') {
         this.stateIcon = 'more-horiz';
+      } else if (this.state == 'Ready' || this.state == 'Cued') {
+        this.stateIcon = 'av:movie';
       } else if (this.state == 'Ended') {
         this.stateIcon = 'av:stop';
       } else {

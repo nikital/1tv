@@ -3,14 +3,14 @@
 <link rel="import" href="/components/core-icons/av-icons.html">
 <link rel="import" href="control-rack.html">
 
-<polymer-element name="onetv-rack">
+<polymer-element name="onetv-rack" attributes="state">
 <template>
   <style>
     paper-button {
       color: #C44D58;
     }
   </style>
-  <control-rack state="Live">
+  <control-rack state="{{state}}">
     <h2>1TV</h2>
 
     <div layout horizontal center-justified>

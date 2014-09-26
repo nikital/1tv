@@ -3,6 +3,7 @@
 function Control() {
     this._socket = new JSONWebSocket('ws://' + window.location.host + '/ws/control');
     this._tabs = document.getElementById('channels');
+    this._onetv = document.querySelector('onetv-rack');
     this._yt = document.querySelector('yt-rack');
 
     this._tabs.addEventListener('core-select', this._onChannelSelect.bind(this));
@@ -29,6 +30,8 @@ Control.prototype._onYTSeek = function() {
 
 Control.prototype._onTelemetry = function(telemetry) {
     console.log(telemetry);
+
+    this._onetv.state = telemetry.onetv.state;
 
     this._yt.videoTitle = telemetry.yt.title;
     this._yt.time = telemetry.yt.time;
