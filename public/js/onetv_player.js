@@ -37,6 +37,12 @@ function OnetvPlayer(stateChangeCallback) {
     OnetvStateTracker.observe(this._onStateChange.bind(this));
 }
 
+OnetvPlayer.prototype.sync = function() {
+    if (this._swf && this._swf.playerSync) {
+        this._swf.playerSync();
+    }
+};
+
 OnetvPlayer.prototype.getState = function() {
     return {state: this._state};
 };

@@ -12,12 +12,19 @@ function Player() {
     this._yt.cueVideo('J1vpB6h3ek4', 0);
 
     this._socket.on('select', this._onSelectCmd.bind(this));
+    this._socket.on('onetv', this._onOnetvCmd.bind(this));
     this._socket.on('yt', this._onYTCmd.bind(this));
     this._socket.on('get-telemetry', this._onGetTelemetry.bind(this));
 }
 
 Player.prototype._onSelectCmd = function(message) {
     this._switchChannel(message.channel);
+};
+
+Player.prototype._onOnetvCmd = function(message) {
+    if (message.sync) {
+        this._onetv.sync();
+    }
 };
 
 Player.prototype._onYTCmd = function(message) {

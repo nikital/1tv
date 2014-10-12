@@ -7,6 +7,7 @@ function Control() {
     this._yt = document.querySelector('yt-rack');
 
     this._tabs.addEventListener('core-select', this._onChannelSelect.bind(this));
+    this._onetv.addEventListener('sync', this._onOnetvSync.bind(this));
     this._yt.addEventListener('cue-video', this._onYTCue.bind(this));
     this._yt.addEventListener('seek-video', this._onYTSeek.bind(this));
 
@@ -16,6 +17,10 @@ function Control() {
 
 Control.prototype._onChannelSelect = function() {
     this._socket.send('select', {channel: this._tabs.selected});
+};
+
+Control.prototype._onOnetvSync = function() {
+    this._socket.send('onetv', {sync: true});
 };
 
 Control.prototype._onYTCue = function() {

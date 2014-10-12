@@ -14,6 +14,7 @@ package net.leshenko.onetv
     import org.osmf.media.MediaPlayerSprite;
     import org.osmf.media.URLResource;
     import org.osmf.traits.*;
+    import org.osmf.utils.OSMFSettings;
 
     public class Player extends Sprite
     {
@@ -55,6 +56,7 @@ package net.leshenko.onetv
 
             ExternalInterface.addCallback("playerPlay", externalPlay);
             ExternalInterface.addCallback("playerPause", externalPause);
+            ExternalInterface.addCallback("playerSync", externalSync);
 
             Log.d("Player class loaded");
         }
@@ -113,6 +115,11 @@ package net.leshenko.onetv
             } else {
                 _player.autoPlay = false;
             }
+
+        }
+        private function externalSync():void
+        {
+            _player.seek(_player.duration - OSMFSettings.hdsDVRLiveOffset);
         }
 
     }

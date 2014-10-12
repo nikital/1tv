@@ -14,11 +14,15 @@
     <h2>1TV</h2>
 
     <div layout horizontal center-justified>
-      <paper-button icon="av:loop">Sync to Live</paper-button>
+      <paper-button on-tap="{{sync}}" icon="av:loop">Sync to Live</paper-button>
     </div>
   </control-rack>
 </template>
 <script>
-  Polymer({});
+  Polymer({
+    sync: function() {
+      this.fire('sync');
+    }
+  });
 </script>
 </polymer-element>
