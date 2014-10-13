@@ -64,6 +64,7 @@
   Polymer({
     cueVideo: function() {
       if (this.cueId) {
+        this.extractCueIdFromUrlIfNesessary();
         this.fire('cue-video');
         this.cueId = '';
         this.seekTimeString = '';
@@ -98,6 +99,22 @@
     setSeekLabel: function() {
       this.seekLabel =
         timeStringFromSeconds(this.time) + '/' + timeStringFromSeconds(this.duration);
+    },
+    extractCueIdFromUrlIfNesessary: function() {
+      var i,
+        queryParams,
+        queryString = this.cueId.match(/https?:\/\/\S*youtube\.\w+\/watch\?(\S*)/);
+      if (!queryString) {
+        return;
+      }
+      queryParams = queryString[1].split('&');
+
+      for (i = 0; i < queryParams.length; ++i) {
+        if (queryParams[i].slice(0, 2) == 'v=') {
+          this.cueId = decodeURIComponent(queryParams[i].slice(2));
+          return;
+        }
+      }
     }
   });
 </script>
