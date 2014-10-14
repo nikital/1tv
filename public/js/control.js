@@ -2,14 +2,17 @@
 
 function Control() {
     this._socket = new JSONWebSocket('ws://' + window.location.host + '/ws/control');
+
     this._tabs = document.getElementById('channels');
     this._onetv = document.querySelector('onetv-rack');
     this._yt = document.querySelector('yt-rack');
+    this._refresh = document.getElementById('refresh-client');
 
     this._tabs.addEventListener('core-select', this._onChannelSelect.bind(this));
     this._onetv.addEventListener('sync', this._onOnetvSync.bind(this));
     this._yt.addEventListener('cue-video', this._onYTCue.bind(this));
     this._yt.addEventListener('seek-video', this._onYTSeek.bind(this));
+    this._refresh.addEventListener('click', this._onClientRefresh.bind(this));
 
     this._socket.on('telemetry', this._onTelemetry.bind(this));
     this._socket.send('get-telemetry', {});
@@ -31,6 +34,10 @@ Control.prototype._onYTCue = function() {
 Control.prototype._onYTSeek = function() {
     var time = this._yt.seekTime;
     this._socket.send('yt', {seek: {time: time}});
+};
+
+Control.prototype._onClientRefresh = function() {
+    this._socket.send('refresh', {});
 };
 
 Control.prototype._onTelemetry = function(telemetry) {

@@ -15,6 +15,7 @@ function Player() {
     this._socket.on('onetv', this._onOnetvCmd.bind(this));
     this._socket.on('yt', this._onYTCmd.bind(this));
     this._socket.on('get-telemetry', this._onGetTelemetry.bind(this));
+    this._socket.on('refresh', this._onRefresh.bind(this));
 }
 
 Player.prototype._onSelectCmd = function(message) {
@@ -55,6 +56,10 @@ Player.prototype._switchChannel = function(channel) {
 
 Player.prototype._onGetTelemetry = function() {
     this._onStateChange();
+};
+
+Player.prototype._onRefresh = function() {
+    window.location.reload(true);
 };
 
 Player.prototype._onStateChange = function() {
