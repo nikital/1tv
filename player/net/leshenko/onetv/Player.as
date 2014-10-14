@@ -19,7 +19,7 @@ package net.leshenko.onetv
     public class Player extends Sprite
     {
 
-        static private const F4M_URL:String = "http://edge1.1internet.tv/phds-live11/livepkgr/_definst_/1tv-hd.f4m";
+        static private const F4M_URL:String = "http://edge1.1internet.tv/phds-live12/livepkgr/_definst_/1tv-hd.f4m";
 
         private var _layout:LayoutMetadata;
         private var _player:MediaPlayer;
