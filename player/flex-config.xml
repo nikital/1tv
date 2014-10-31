@@ -4,7 +4,7 @@
     <!-- Specifies the minimum player version that will run the compiled SWF. -->
     <target-player>14.0</target-player>
 
-    <swf-version>14</swf-version>
+    <swf-version>11</swf-version>
 
     <static-link-runtime-shared-libraries>true</static-link-runtime-shared-libraries>
 

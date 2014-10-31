@@ -19,7 +19,7 @@ package net.leshenko.onetv
     public class Player extends Sprite
     {
 
-        static private const F4M_URL:String = "http://edge1.1internet.tv/phds-live12/livepkgr/_definst_/1tv-hd.f4m";
+        static private const F4M_URL:String = "http://edge2.1internet.tv/phds-live12/livepkgr/_definst_/1tv-hd.f4m";
 
         private var _layout:LayoutMetadata;
         private var _player:MediaPlayer;
@@ -63,7 +63,8 @@ package net.leshenko.onetv
 
         private function createMedia():void
         {
-            var resource:URLResource = new URLResource(F4M_URL);
+            var today:Date = new Date();
+            var resource:URLResource = new URLResource(F4M_URL + "?e=" + today.getTime());
             var element:F4MElement = new F4MElement(resource);
             element.addMetadata(LayoutMetadata.LAYOUT_NAMESPACE, _layout);
 

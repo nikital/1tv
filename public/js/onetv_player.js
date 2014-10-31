@@ -30,7 +30,7 @@ function OnetvPlayer(stateChangeCallback) {
     params.allowfullscreen='false'; 
 
     swfobject.embedSWF('/swf/player.swf',
-                       'player-1tv', '100%', '100%', '14.0.0', false,
+                       'player-1tv', '100%', '100%', '11.0.0', false,
                        flashvars, params, attributes,
                        this._onSWFEmbedded.bind(this));
 
