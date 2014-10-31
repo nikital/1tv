@@ -1,6 +1,6 @@
 AS_FILES = $(shell find . -type f -iname '*.as')
 
-../public/swf/player.swf: Player.swf
+../server/public/swf/player.swf: Player.swf
 	cp $< $@
 
 Player.swf: PlayerMain.as flex-config.xml $(AS_FILES)
