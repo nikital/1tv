@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+SERVER_PATH="<SERVER_PATH>"
+
+case "$1" in
+  start)
+  exec nodejs $SERVER_PATH/server.js
+  ;;
+esac
+
+exit 0
