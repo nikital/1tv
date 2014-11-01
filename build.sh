@@ -11,4 +11,4 @@ npm install
 cd -
 
 mkdir build
-zip build/1tv.zip server scripts
+zip -r build/1tv.zip server scripts
