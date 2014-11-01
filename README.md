@@ -11,11 +11,7 @@ Preparing Linux Box
 ===================
 
 - Make the user log in as default
-- Disable screen saver, http://askubuntu.com/a/186489
-- Make local.1tv.ru point to localhost.
-- Install flash
-- Add desktop file
-
-- Install node
+- Disable Firefox session recovery
+- Run env scripts
 - Run the packer on a clean checkout
 - Unpack on target and run installer

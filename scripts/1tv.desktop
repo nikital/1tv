@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=1TV
+Exec=iceweasel -no-remote http://ynet.co.il
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
