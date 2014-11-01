@@ -11,4 +11,4 @@ apt-get -y upgrade
 apt-get -y install hal flashplugin-nonfree nodejs
 
 # Hosts
-echo 'local.1tv.ru 127.0.0.1' >> /etc/hosts
+echo '127.0.0.1 local.1tv.ru' >> /etc/hosts
