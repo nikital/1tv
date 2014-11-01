@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Name=1TV
-Exec=iceweasel -no-remote http://ynet.co.il
+Exec=iceweasel -no-remote http://local.1tv.ru:8080
 Hidden=false
 NoDisplay=false
 X-GNOME-Autostart-enabled=true
