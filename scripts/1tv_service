@@ -4,7 +4,7 @@ SERVER_PATH="<SERVER_PATH>"
 
 case "$1" in
   start)
-  exec nodejs $SERVER_PATH/server.js
+  cd $SERVER_PATH && exec nodejs server.js
   ;;
 esac
 
