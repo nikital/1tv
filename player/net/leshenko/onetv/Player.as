@@ -20,6 +20,7 @@ package net.leshenko.onetv
     {
 
         static private const F4M_URL:String = "http://edge2.1internet.tv/phds-live12/livepkgr/_definst_/1tv-hd.f4m";
+        static private const BUFFER_TIME_SECONDS:Number = 15;
 
         private var _layout:LayoutMetadata;
         private var _player:MediaPlayer;
@@ -42,6 +43,7 @@ package net.leshenko.onetv
 
             _player = new MediaPlayer();
             _player.autoPlay = true;
+            _player.bufferTime = BUFFER_TIME_SECONDS;
             _player.addEventListener(TimeEvent.CURRENT_TIME_CHANGE, onCurrentTimeChange);
             _player.addEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE, onPlayerStateChange);
             _player.addEventListener(MediaErrorEvent.MEDIA_ERROR, onMediaError);
