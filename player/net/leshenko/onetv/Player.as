@@ -59,6 +59,7 @@ package net.leshenko.onetv
             ExternalInterface.addCallback("playerPlay", externalPlay);
             ExternalInterface.addCallback("playerPause", externalPause);
             ExternalInterface.addCallback("playerSync", externalSync);
+            ExternalInterface.addCallback("ping", externalPing);
 
             Log.d("Player class loaded");
         }
@@ -123,6 +124,11 @@ package net.leshenko.onetv
         private function externalSync():void
         {
             _player.seek(_player.duration - OSMFSettings.hdsDVRLiveOffset);
+        }
+
+        private function externalPing(val:int):int
+        {
+            return val;
         }
 
     }
