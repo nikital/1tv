@@ -97,13 +97,19 @@ OnetvPlayer.prototype._onStateChange = function(newState) {
 OnetvPlayer.prototype._ping = function() {
     if (this._swf && (this._pingAlive || this._swf.ping)) {
         var cookie = 20;
-        if (!this._swf.ping || cookie != this._swf.ping(cookie)) {
-            // Sometimes Flash crashes on Linux so this code detects it and
-            // reloads the page.
-            // This is kind of like exit(1) in the middle of a program, but
-            // that's an extreme case...
+
+        try {
+            if (!this._swf.ping || cookie != this._swf.ping(cookie)) {
+                // Sometimes Flash crashes on Linux so this code detects it and
+                // reloads the page.
+                // This is kind of like exit(1) in the middle of a program, but
+                // that's an extreme case...
+                window.location.reload(true);
+            }
+        } catch (e) {
             window.location.reload(true);
         }
+
         this._pingAlive = true;
     }
     setTimeout(this._ping.bind(this), 1000);
