@@ -5,13 +5,18 @@ Download Flex 4.13 SDK from Apache,
 select Flash Player 14 as the target.
 Set `$FLEX_HOME` to point to SDK root.
 
-Run `npm install` to install node dependencies.
+Run `build.sh` on a clean checkout and the result will be built to `build/`
+directory.
 
 Preparing Linux Box
 ===================
 
-- Make the user log in as default
+- Make the user log in as default without password
 - Disable Firefox session recovery
-- Run env scripts
-- Run the packer on a clean checkout
-- Unpack on target and run installer
+- Extract build output to the home directory
+- Run install scripts
+
+Control Panel
+=============
+
+![Control](/control.png)
