@@ -55,4 +55,14 @@ Control.prototype._onTelemetry = function(telemetry) {
 
 (function(exports) {
     exports.control = new Control();
+
+    function printVersion() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/version.txt', true);
+        xhr.onload = function() {
+            console.info('Version: ' + xhr.response);
+        };
+        xhr.send();
+    }
+    printVersion();
 })(window);
