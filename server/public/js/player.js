@@ -24,7 +24,7 @@ Player.prototype._onSelectCmd = function(message) {
 
 Player.prototype._onOnetvCmd = function(message) {
     if (message.sync) {
-        this._onetv.sync();
+        this._onetv.reloadSWF();
     }
 };
 

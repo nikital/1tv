@@ -25,12 +25,6 @@ function OnetvPlayer(stateChangeCallback) {
     this._ping();
 }
 
-OnetvPlayer.prototype.sync = function() {
-    if (this._swf && this._swf.playerSync) {
-        this._swf.playerSync();
-    }
-};
-
 OnetvPlayer.prototype.getState = function() {
     return {state: this._state};
 };
