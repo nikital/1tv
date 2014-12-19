@@ -18,7 +18,7 @@ function OnetvPlayer(stateChangeCallback) {
     this._stateChangeCallback = stateChangeCallback;
     this._swfLoadTime = Date.now();
 
-    this._embedSWF();
+    this.reloadSWF();
 
     OnetvStateTracker.observe(this._onStateChange.bind(this));
 
@@ -53,7 +53,7 @@ OnetvPlayer.prototype.show = function() {
     }
 };
 
-OnetvPlayer.prototype._embedSWF = function() {
+OnetvPlayer.prototype.reloadSWF = function() {
     var flashvars = {},
         params = {},
         attributes = {};
@@ -131,7 +131,7 @@ OnetvPlayer.prototype._ping = function() {
         this._pingAlive = true;
 
         if (Date.now() - this._swfLoadTime > 2 * 60*60*1000) {
-            this._embedSWF();
+            this.reloadSWF();
         }
     }
     setTimeout(this._ping.bind(this), 1000);

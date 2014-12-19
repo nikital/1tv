@@ -94,7 +94,8 @@ YTPlayer.prototype._onYTReady = function() {
 YTPlayer.prototype._onStateChange = function() {
     if (this._yt.getPlayerState() == YT.PlayerState.ENDED) {
         if (this._videoEndedCallback) {
-            this._videoEndedCallback();
+            var longVideo = this._yt.getDuration() > 5 * 60;
+            this._videoEndedCallback(longVideo);
         }
     }
 

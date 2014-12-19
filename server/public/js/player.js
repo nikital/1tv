@@ -71,8 +71,11 @@ Player.prototype._onStateChange = function() {
     this._socket.send('telemetry', telemetry);
 };
 
-Player.prototype._onYTEnd = function() {
+Player.prototype._onYTEnd = function(longVideo) {
     this._switchChannel('onetv');
+    if (longVideo) {
+        this._onetv.reloadSWF();
+    }
 };
 
 (function(exports) {
