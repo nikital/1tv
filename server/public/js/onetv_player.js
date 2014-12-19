@@ -13,30 +13,15 @@ var OnetvStateTracker = {
 };
 
 function OnetvPlayer(stateChangeCallback) {
-    var flashvars = {},
-        params = {},
-        attributes = {};
-
     this._wrap = document.getElementById('player-1tv-wrap');
-    this._swf = null;
     this._visible = true;
-    this._state = 'Unloaded';
     this._stateChangeCallback = stateChangeCallback;
+    this._swfLoadTime = Date.now();
 
-    params.bgcolor='#0'; 
-    params.wmode='direct'; 
-    params.allownetworking='all'; 
-    params.allowscriptaccess='always'; 
-    params.allowfullscreen='false'; 
-
-    swfobject.embedSWF('/swf/player.swf',
-                       'player-1tv', '100%', '100%', '11.0.0', false,
-                       flashvars, params, attributes,
-                       this._onSWFEmbedded.bind(this));
+    this._embedSWF();
 
     OnetvStateTracker.observe(this._onStateChange.bind(this));
 
-    this._pingAlive = false;
     this._ping();
 }
 
@@ -68,8 +53,41 @@ OnetvPlayer.prototype.show = function() {
     }
 };
 
+OnetvPlayer.prototype._embedSWF = function() {
+    var flashvars = {},
+        params = {},
+        attributes = {};
+
+    this._state = 'Unloaded';
+
+    if (this._swf) {
+        var restoredPlaceholder = document.createElement('div');
+        restoredPlaceholder.id = this._swf.id;
+
+        swfobject.removeSWF(this._swf.id);
+        this._wrap.appendChild(restoredPlaceholder);
+        this._onStateChange(this._state);
+    }
+
+    this._swf = null;
+
+    params.bgcolor='#0'; 
+    params.wmode='direct'; 
+    params.allownetworking='all'; 
+    params.allowscriptaccess='always'; 
+    params.allowfullscreen='false'; 
+
+    swfobject.embedSWF('/swf/player.swf',
+                       'player-1tv', '100%', '100%', '11.0.0', false,
+                       flashvars, params, attributes,
+                       this._onSWFEmbedded.bind(this));
+
+    this._pingAlive = false;
+};
+
 OnetvPlayer.prototype._onSWFEmbedded = function(obj) {
     this._swf = obj.ref;
+    this._swfLoadTime = Date.now();
     if (!this._visible) {
         this.hide();
     }
@@ -111,6 +129,10 @@ OnetvPlayer.prototype._ping = function() {
         }
 
         this._pingAlive = true;
+
+        if (Date.now() - this._swfLoadTime > 2 * 60*60*1000) {
+            this._embedSWF();
+        }
     }
     setTimeout(this._ping.bind(this), 1000);
 };
