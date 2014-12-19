@@ -1,11 +1,12 @@
 // 'use strict';
 
-function YTPlayer(stateChangeCallback) {
+function YTPlayer(stateChangeCallback, videoEndedCallback) {
     this._wrap = document.getElementById('player-yt-wrap');
     this._yt = null;
     this._visible = true;
     this._cued = null;
     this._stateChangeCallback = stateChangeCallback;
+    this._videoEndedCallback = videoEndedCallback;
 
     YT.ready(this._onYTReady.bind(this));
 }
@@ -91,11 +92,21 @@ YTPlayer.prototype._onYTReady = function() {
 };
 
 YTPlayer.prototype._onStateChange = function() {
+    if (this._yt.getPlayerState() == YT.PlayerState.ENDED) {
+        if (this._videoEndedCallback) {
+            this._videoEndedCallback();
+        }
+    }
+
+    this._doStateUpdate();
+};
+
+YTPlayer.prototype._doStateUpdate = function() {
     if (this._stateChangeCallback) {
         this._stateChangeCallback();
     }
     if (this._yt.getPlayerState() == YT.PlayerState.PLAYING) {
-        setTimeout(this._onStateChange.bind(this), 1000);
+        setTimeout(this._doStateUpdate.bind(this), 1000);
     }
 };
 

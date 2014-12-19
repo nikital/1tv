@@ -4,7 +4,7 @@ function Player() {
     var boundStateCallback = this._onStateChange.bind(this);
 
     this._onetv = new OnetvPlayer(boundStateCallback);
-    this._yt = new YTPlayer(boundStateCallback);
+    this._yt = new YTPlayer(boundStateCallback, this._onYTEnd.bind(this));
     this._socket = new JSONWebSocket('ws://' + window.location.host + '/ws/player');
     this._channel = '';
 
@@ -69,6 +69,10 @@ Player.prototype._onStateChange = function() {
         yt: this._yt.getState()
     };
     this._socket.send('telemetry', telemetry);
+};
+
+Player.prototype._onYTEnd = function() {
+    this._switchChannel('onetv');
 };
 
 (function(exports) {
